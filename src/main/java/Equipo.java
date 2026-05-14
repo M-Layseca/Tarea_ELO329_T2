@@ -23,4 +23,9 @@ public class Equipo {
     public DoubleProperty yProperty() { return y; }
 
     public String getOwnerName() { return ownerName; }
+    public void move(double dt) {
+        theta += dtheta * dt;
+        x.set(x.get() + r * Math.cos(theta) * dt);
+        y.set(y.get() + r * Math.sin(theta) * dt);
+    }
 }

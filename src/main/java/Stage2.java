@@ -1,23 +1,27 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.Locale;
 
-public class Stage1 extends Application {
+public class Stage2 extends Application {
     private Territory territory;
     private TerritoryView territoryView;
+    private double timeStep;  // in seconds
     @Override // Override the start method in the Application class
     public void start(Stage primaryStage) {
         Scanner configFile= openConfig(primaryStage);
         territory = new Territory();
         territoryView = new TerritoryView(territory, configFile.next());
-        configFile.nextDouble();  // skip timeStep
+        timeStep = configFile.nextDouble();
         BorderPane scenePane = new BorderPane();
         scenePane.setTop(createMenuBar());
         scenePane.setCenter(territoryView);
@@ -33,11 +37,11 @@ public class Stage1 extends Application {
             try {
                 File file = fileChooser(stage);
                 configFile = new Scanner(file);
-                configFile.useLocale(Locale.US);
+                configFile.useLocale(java.util.Locale.US); // <--- AGREGA ESTA LÍNEA
             } catch (FileNotFoundException e) {
-                configFile=null;
+                configFile = null;
             }
-        } while (configFile ==null);
+        } while (configFile == null);
         return configFile;
     }
     private File fileChooser(Stage stage) {
@@ -50,10 +54,19 @@ public class Stage1 extends Application {
     private MenuBar createMenuBar() {
         MenuBar menuBar = new MenuBar();
         Menu simulMenu = new Menu("Simulation");
-        MenuItem playItem = new MenuItem("Play");
-        MenuItem pauseItem = new MenuItem("Pause");
-        simulMenu.getItems().addAll(playItem, pauseItem);
-        menuBar.getMenus().addAll(simulMenu);
+        MenuItem playMenuItem = new MenuItem("Play");
+        MenuItem pauseMenuItem = new MenuItem("Pause");
+        simulMenu.getItems().addAll(playMenuItem, pauseMenuItem);
+        menuBar.getMenus().add(simulMenu);
+
+        // Configurar la animación
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.millis(1000 * timeStep), e -> territory.moveAll(timeStep))
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+
+        playMenuItem.setOnAction(e -> timeline.play());
+        pauseMenuItem.setOnAction(e -> timeline.pause());
 
         return menuBar;
     }
@@ -63,7 +76,6 @@ public class Stage1 extends Application {
             setupPersonEquipment(in);
     }
     private void setupPersonEquipment(Scanner in){
-        Cellular cellular;
         double x, y, r, theta, dt;
 
         String personName = in.next();
@@ -74,25 +86,34 @@ public class Stage1 extends Application {
         r = in.nextFloat();
         theta = Math.toRadians(in.nextFloat());
         dt = Math.toRadians(in.nextFloat());
-        cellular = new Cellular(personName, x, y, r, theta, dt);
+        Cellular cellular = new Cellular(personName, x, y, r, theta, dt);
         CellularView cView = new CellularView(cellular);
         territory.addEquipment(cellular);
         territoryView.add(cView);
         for (int j = 0; j < tagNumber; j++)
             setupEloTags(in, personName);
         if (isThereTablet) {
-            in.nextFloat(); in.nextFloat();   // skip tablet's location
-            in.nextFloat(); in.nextFloat(); in.nextFloat(); // skip r, theta , dTheta
+            double tx = in.nextFloat();
+            double ty = in.nextFloat();
+            double tr = in.nextFloat();
+            double tt = Math.toRadians(in.nextFloat());
+            double tdt = Math.toRadians(in.nextFloat());
+            Tablet tablet = new Tablet(personName, tx, ty, tr, tt, tdt);
+            territory.addEquipment(tablet);
+            territoryView.add(new TabletView(tablet));
         }
     }
     private void setupEloTags(Scanner in, String personName) {
+        EloTelTag tag;
         String tagName = in.next();
-        float x = in.nextFloat();
-        float y = in.nextFloat();
-        float r = in.nextFloat();
-        float theta = in.nextFloat();
-        double dt = in.nextDouble();
-
+        double x=in.nextFloat();
+        double y=in.nextFloat();
+        double r=in.nextFloat();
+        double theta=in.nextFloat();
+        double dt=in.nextFloat();
+        tag = new EloTelTag(personName, tagName, x, y, r, theta, dt);
+        territory.addEquipment(tag);
+        territoryView.add(new EloTelTagView(tag));
     }
     /**
      * The main method is only needed for the IDE with limited JavaFX support.

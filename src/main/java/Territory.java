@@ -5,4 +5,9 @@ public class Territory {  // Piece of land where cellulars, tags, and tablets ar
     public void addEquipment(Equipo eq) {
         equipment.add(eq);
     }
+    public void moveAll(double timeStep) {
+        for (Equipo eq : equipment) {
+            eq.move(timeStep); // Necesitas agregar este método en Equipo
+        }
+    }
 }

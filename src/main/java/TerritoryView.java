@@ -15,7 +15,9 @@ public class TerritoryView extends ScrollPane {
     public TerritoryView(Territory territory, String imageName) {
         this.territory = territory;
 
-        Image image = new Image("file:"+imageName);
+        File imageFile = new File(imageName);
+        Image image = new Image(imageFile.toURI().toString());
+
         ImageView mapView = new ImageView(image);
         WIDTH = image.getWidth();
         HEIGHT = image.getHeight();

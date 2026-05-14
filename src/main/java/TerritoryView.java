@@ -27,6 +27,7 @@ public class TerritoryView extends ScrollPane {
         this.setContent(territoryPane);
     }
     public void add(Node equipo) {
+
         pane.getChildren().add(equipo);
     }
 }

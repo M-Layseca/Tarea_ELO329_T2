@@ -27,5 +27,6 @@ public class CellularView extends Group {
         label.yProperty().bind(cellular.yProperty().add(height / 2 + 4));
 
         this.getChildren().addAll(rect, label);
+
     }
 }

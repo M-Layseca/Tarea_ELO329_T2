@@ -92,6 +92,7 @@ public class Stage1 extends Application {
         float r = in.nextFloat();
         float theta = in.nextFloat();
         double dt = in.nextDouble();
+
     }
     /**
      * The main method is only needed for the IDE with limited JavaFX support.

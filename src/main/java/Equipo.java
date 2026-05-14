@@ -16,6 +16,7 @@ public class Equipo {
         this.theta = theta;
         this.dtheta = dtheta;
 
+
     }
 
     public DoubleProperty xProperty() { return x; }

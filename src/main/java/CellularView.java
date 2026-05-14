@@ -1,3 +1,5 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -7,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class CellularView extends Group {
     private final Cellular cellular;
@@ -36,12 +39,31 @@ public class CellularView extends Group {
             findMyItem.setOnAction(event -> {
                 Stage infoStage = new Stage();
                 ListView<String> listView = new ListView<>();
-                listView.getItems().add("Bienes de " + cellular.getOwnerName());
-                listView.getItems().addAll(nube.obtenerReportes(cellular.getOwnerName()));
+
+                // Función encapsulada para refrescar los datos de la nube
+                Runnable actualizarDatos = () -> {
+                    listView.getItems().clear();
+                    listView.getItems().add("Bienes de " + cellular.getOwnerName());
+                    listView.getItems().addAll(nube.obtenerReportes(cellular.getOwnerName()));
+                };
+
+                // Ejecutar la primera vez manualmente
+                actualizarDatos.run();
 
                 Scene infoScene = new Scene(listView, 250, 200);
                 infoStage.setTitle("Find My f...");
                 infoStage.setScene(infoScene);
+
+                // Crear el Timeline para actualizar cada 1 segundo (Etapa 4)
+                Timeline actualizador = new Timeline(
+                        new KeyFrame(Duration.seconds(1), t -> actualizarDatos.run())
+                );
+                actualizador.setCycleCount(Timeline.INDEFINITE);
+                actualizador.play();
+
+                // Detener el Timeline al cerrar la ventana para liberar recursos
+                infoStage.setOnCloseRequest(closeEvent -> actualizador.stop());
+
                 infoStage.show();
             });
 

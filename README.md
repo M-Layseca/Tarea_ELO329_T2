@@ -1,5 +1,11 @@
 # Tarea_ELO329_T2
 
+## Integrantes:
+- Martin Layseca
+- Diego Villanueva
+- Joaquin Torres
+- Eduardo Canales
+
 # Simulador EloTelTag - Tarea 2
 
 ## Archivos de la Tarea (Etapa 4)

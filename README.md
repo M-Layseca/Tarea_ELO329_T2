@@ -24,6 +24,13 @@
 
 ## Cómo compilar la tarea
 
+Al utilizar **Maven**, puedes compilar el proyecto directamente desde la terminal de tu IDE o sistema operativo. Asegúrate de tener instalado Maven y configurada la variable de entorno de Java.
+
+1. Abre la terminal en la raíz del proyecto (donde se encuentra el archivo `pom.xml`).
+2. Ejecuta el siguiente comando para limpiar compilaciones previas y compilar el código actual:
+   ```bash
+   mvn clean compile
+
 
 ## Cómo ejecutar la tarea
 1. Asegúrese de que el archivo de imagen (ej. `Placeres.jpg`) esté ubicado en la raíz del proyecto.

@@ -6,10 +6,10 @@ MAIN_CLASS = Launcher
 all: compile
 
 compile:
-	./mvnw clean compile
+	mvn clean compile
 
 run:
-	./mvnw exec:java -Dexec.mainClass="$(MAIN_CLASS)"
+	mvn exec:java -Dexec.mainClass="$(MAIN_CLASS)"
 
 clean:
-	./mvnw clean
+	mvn clean

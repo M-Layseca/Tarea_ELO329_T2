@@ -1,19 +1,15 @@
-JAVAFX_LIB = "C:/Users/joaqu/OneDrive/Escritorio/javafx-sdk-21.0.11/lib"
-MODULES = javafx.controls,javafx.fxml,javafx.graphics
+# Makefile para la Etapa 3 - Tarea 2 (ELO329)
+# Diseñado para compilar y ejecutar el proyecto Maven con JavaFX
 
-SRC_DIR = src/main/java
-OUT_DIR = out
-SOURCES = $(wildcard $(SRC_DIR)/*.java)
-
+MAIN_CLASS = Stage3
 
 all: compile
 
 compile:
-	@mkdir -p $(OUT_DIR)
-	javac -d $(OUT_DIR) --module-path $(JAVAFX_LIB) --add-modules $(MODULES) $(SOURCES)
+	./mvnw clean compile
 
-run: compile
-	java --module-path $(JAVAFX_LIB) --add-modules $(MODULES) -cp $(OUT_DIR) Etapa3
+run:
+	./mvnw exec:java -Dexec.mainClass="$(MAIN_CLASS)"
 
 clean:
-	rm -rf $(OUT_DIR)
+	./mvnw clean

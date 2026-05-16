@@ -20,7 +20,7 @@
 * **Archivos de Configuración:**
     * `pom.xml`: Archivo de configuración de Maven para la gestión de dependencias (JavaFX).
     * `config.txt`: Archivo de texto con los parámetros iniciales de la simulación.
-    * `Placeres.jpg` (ejemplo): Imagen utilizada como fondo del territorio.
+    * `Placeres.jpg`: Imagen utilizada como fondo del territorio.
 
 ## Cómo compilar la tarea
 

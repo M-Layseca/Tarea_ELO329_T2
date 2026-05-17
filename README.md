@@ -14,36 +14,35 @@
     * `Stage4.java`: Configura la ventana principal, el menú y lee el archivo de configuración.
     * `Territory.java` / `TerritoryView.java`: Clases para la lógica y representación gráfica del mapa (Modelo y Vista).
     * `Equipo.java`: Superclase que define las propiedades físicas comunes (x, y, velocidad).
-    * `Cellular.java`, `Tag.java`, `Tablet.java`: Clases que heredan de `Equipo` (Modelo).
-    * `CellularView.java`, `TagView.java`, `TabletView.java`: Clases que representan gráficamente a los equipos (Vista).
-    * `ETnube.java`: Simula la base de datos o servidor en la nube para el registro de posiciones.
-* **Archivos de Configuración:**
-    * `pom.xml`: Archivo de configuración de Maven para la gestión de dependencias (JavaFX).
+    * `Cellular.java`, `EloTelTag.java`, `Tablet.java`: Clases que heredan de `Equipo` (Modelo).
+    * `CellularView.java`, `EloTelTagView.java`, `TabletView.java`: Clases que representan gráficamente a los equipos (Vista) y manejan las animaciones de radar y sonido.
+    * `ETNube.java`: Simula la base de datos o servidor en la nube para el registro de posiciones de los dispositivos detectados.
+* **Archivos de Configuración y Recursos:**
+    * `pom.xml`: Archivo de configuración de Maven para la gestión de dependencias (JavaFX y javafx-media).
     * `config.txt`: Archivo de texto con los parámetros iniciales de la simulación.
-    * `Placeres.jpg`: Imagen utilizada como fondo del territorio.
+    * `Makefile`: Script para automatizar la compilación, ejecución y generación de Javadoc.
+    * `src/main/resources/sonidos/`: Directorio que contiene el archivo de audio para el radar.
 
-## Cómo compilar la tarea
+## Cómo compilar y ejecutar la tarea
 
-Para compliar la tarea basta con usar el archivo Makefile en su respectiva etapa.
+El proyecto está configurado para ejecutarse fácilmente delegando el proceso a Maven, dependiendo de su entorno de trabajo. 
+
+### Opción A: Entornos Linux / Ubuntu
+Abra la terminal en el directorio raíz del proyecto y utilice los siguientes comandos proporcionados por el `Makefile`:
+* **Para compilar y ejecutar la simulación:**
+  ```bash
+  make clean
+  make
+  make run
+  ```
+
+### Opción B: Entornos Windows (PowerShell)
+Abra su consola PowerShell en la raíz del proyecto y ejecute el Wrapper de Maven:
    ```bash
-   make 
-   make run
-   make clean
+   .\mvnw.cmd clean compile exec:java '-Dexec.mainClass=Stage4'
    ```
-
-O, al utilizar **Maven**, puedes compilar el proyecto directamente desde la terminal de tu IDE o sistema operativo. Asegúrate de tener instalado Maven y configurada la variable de entorno de Java.
-
-1. Abre la terminal en la raíz del proyecto (donde se encuentra el archivo `pom.xml`).
-2. Ejecuta el siguiente comando para limpiar compilaciones previas y compilar el código actual:
-   ```bash
-   mvn clean compile
-
-
-## Cómo ejecutar la tarea
-1. Asegúrese de que el archivo de imagen (ej. `Placeres.jpg`) esté ubicado en la raíz del proyecto.
-2. Desde su IDE (ej. IntelliJ), navegue hasta el archivo `Launcher.java`.
-3. Ejecute la clase `Launcher` (Run 'Launcher.main()').
-4. En el simulador, utilice el menú superior "Simulation" y seleccione un archivo de configuración válido para iniciar la ejecución.
+### Opción C: Utilizar IntelliJ
+Abra el proyecto en la aplicacion, navejar a la clase `Launcher` y ejecutarla (Run 'Launcher.main()').
 
 ## Generación de Documentación (Javadoc)
 
@@ -53,7 +52,7 @@ Para generar la documentación, siga estos pasos:
 1. Abra una terminal en el directorio del proyecto.
 2. Ejecute el comando: `make javadoc` (o alternativamente, ejecute `mvn javadoc:javadoc`).
 3. El proceso creará una nueva carpeta llamada `target` (si no existía previamente).
-4. Para visualizar la documentación, navegue a la ruta `target/site/apidocs/` y abra el archivo `index.html` en su navegador web de preferencia.
+4. Para visualizar la documentación, navegue a la ruta `target/reports/apidocs/` y abra el archivo `index.html` en su navegador web de preferencia.
 
 
 ## Diagrama de clases:

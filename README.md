@@ -42,7 +42,7 @@ Abra su consola PowerShell en la raíz del proyecto y ejecute el Wrapper de Mave
    .\mvnw.cmd clean compile exec:java '-Dexec.mainClass=Stage4'
    ```
 ### Opción C: Utilizar IntelliJ
-Abra el proyecto en la aplicacion, navejar a la clase `Launcher` y ejecutarla (Run 'Launcher.main()').
+Abra el proyecto en la aplicacion, navegar a la clase `Launcher` y ejecutarla (Run 'Launcher.main()').
 
 ## Generación de Documentación (Javadoc)
 

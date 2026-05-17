@@ -44,3 +44,13 @@ O, al utilizar **Maven**, puedes compilar el proyecto directamente desde la term
 2. Desde su IDE (ej. IntelliJ), navegue hasta el archivo `Launcher.java`.
 3. Ejecute la clase `Launcher` (Run 'Launcher.main()').
 4. En el simulador, utilice el menú superior "Simulation" y seleccione un archivo de configuración válido para iniciar la ejecución.
+
+## Generación de Documentación (Javadoc)
+
+Este proyecto está configurado para generar automáticamente la documentación técnica del código fuente utilizando Javadoc a través de Maven.
+
+Para generar la documentación, siga estos pasos:
+1. Abra una terminal en el directorio del proyecto.
+2. Ejecute el comando: `make javadoc` (o alternativamente, ejecute `mvn javadoc:javadoc`).
+3. El proceso creará una nueva carpeta llamada `target` (si no existía previamente).
+4. Para visualizar la documentación, navegue a la ruta `target/site/apidocs/` y abra el archivo `index.html` en su navegador web de preferencia.

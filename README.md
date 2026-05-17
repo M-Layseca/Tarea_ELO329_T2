@@ -54,3 +54,121 @@ Para generar la documentación, siga estos pasos:
 2. Ejecute el comando: `make javadoc` (o alternativamente, ejecute `mvn javadoc:javadoc`).
 3. El proceso creará una nueva carpeta llamada `target` (si no existía previamente).
 4. Para visualizar la documentación, navegue a la ruta `target/site/apidocs/` y abra el archivo `index.html` en su navegador web de preferencia.
+
+
+## Diagrama de clases:
+
+```mermaid
+
+classDiagram
+    %% Relación de herencia para Modelos
+    Equipo <|-- Cellular
+    Equipo <|-- EloTelTag
+    Equipo <|-- Tablet
+
+    %% Relación de herencia para Vistas
+    EquipoView <|-- CellularView
+    EquipoView <|-- EloTelTagView
+    EquipoView <|-- TabletView
+
+    %% Relación Modelo/Vista
+    Cellular "1" -- "1" CellularView : tiene
+    EloTelTag "1" -- "1" EloTelTagView : tiene
+    Tablet "1" -- "1" TabletView : tiene
+    Territory "1" -- "1" TerritoryView : tiene
+
+    %% Relaciones del Motor (Controlador/Agregación)
+    Territory "1" *-- "*" Equipo : administra
+    Territory ..> ETNube : envía reportes a
+    
+    %% Relación de los Menús Emergentes y Ventanas (Etapa 3 y 4)
+    CellularView ..> PopupMenu : invoca
+    TabletView ..> PopupMenu : invoca
+    PopupMenu ..> FindMyMenu : abre
+    PopupMenu ..> GFindMyMenu : abre
+
+    class Equipo {
+        <<abstract>>
+        -String owner
+        -double x
+        -double y
+        -double speed
+        -double angle
+        +move(double deltaT)
+        +getX()
+        +getY()
+    }
+
+    class Cellular {
+        +reportToCloud()
+    }
+
+    class EloTelTag {
+        -String name
+        +scan(Territory t)
+    }
+
+    class Tablet {
+        +scan(Territory t)
+    }
+
+    class EquipoView {
+        <<abstract>>
+        -Node javafxNode
+        +updatePosition(double x, double y)
+    }
+
+    class CellularView {
+        +onMouseClick()
+    }
+
+    class EloTelTagView {
+        +drawRadarPulse()
+        +playRadarSound()
+    }
+
+    class TabletView {
+        +drawRadarPulse()
+        +playRadarSound()
+        +onMouseClick()
+    }
+
+    class Territory {
+        -List~Equipo~ devices
+        -double width
+        -double height
+        +moveAll(double deltaT)
+        +detectarCelularesCercanos()
+    }
+
+    class TerritoryView {
+        -Image background
+        +render()
+    }
+
+    class ETNube {
+        <<Instancia única>>
+        -Map~String, List~Report~~ data
+        +receiveReport(String owner, String device, double x, double y)
+        +getReportsFor(String owner)
+    }
+    
+    class PopupMenu {
+        +showOptions(String owner)
+    }
+
+    class FindMyMenu {
+        -Stage window
+        +showData(String owner)
+        +startAutoUpdate(int delay)
+    }
+    
+    class GFindMyMenu {
+        <<Mismo fondo de mapa de simulación>>
+        -Stage window
+        -Image background
+        +showGraphicData(String owner)
+        +startAutoUpdate(int delay)
+    }
+
+```

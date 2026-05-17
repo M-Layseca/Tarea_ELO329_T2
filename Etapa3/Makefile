@@ -11,5 +11,8 @@ compile:
 run:
 	./mvnw exec:java -Dexec.mainClass="$(MAIN_CLASS)"
 
+javadoc:
+	./mvnw javadoc:javadoc
+
 clean:
 	./mvnw clean

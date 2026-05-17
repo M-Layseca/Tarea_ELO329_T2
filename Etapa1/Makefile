@@ -13,3 +13,6 @@ run:
 
 clean:
 	mvn clean
+
+javadoc:
+	mvn javadoc:javadoc

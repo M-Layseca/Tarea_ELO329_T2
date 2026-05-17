@@ -23,3 +23,8 @@ run:
 clean:
 	@echo "Limpiando archivos compilados..."
 	rm -rf $(BIN)
+
+javadoc:
+	@echo "Generando documentación Javadoc en la carpeta doc/..."
+	mkdir -p doc
+	javadoc $(FX_MODULES) -d doc -sourcepath src/main/java $(SRC)

@@ -1,30 +1,18 @@
-JAVAC = javac
-JAVA = java
-BIN = bin
+# Makefile para la Etapa 2 - Tarea 2 (ELO329)
+# Diseñado para compilar y ejecutar el proyecto Maven con JavaFX
 
-SRC_DIR = src/main/java
-SRC = $(wildcard $(SRC_DIR)/*.java)
+MAIN_CLASS = Stage2
 
-PATH_TO_FX = /usr/share/openjfx/lib
-FX_MODULES = --module-path $(PATH_TO_FX) --add-modules javafx.controls,javafx.graphics
-
-all: compile run
+all: compile
 
 compile:
-	@echo "Creando el directorio de binarios en la raíz..."
-	mkdir -p $(BIN)
-	@echo "Compilando los archivos Java desde $(SRC_DIR)..."
-	$(JAVAC) $(FX_MODULES) -d $(BIN) $(SRC)
+	./mvnw clean compile
 
 run:
-	@echo "Iniciando Simulation desde la raíz del proyecto..."
-	$(JAVA) $(FX_MODULES) -cp $(BIN) Launcher
-
-clean:
-	@echo "Limpiando archivos compilados..."
-	rm -rf $(BIN)
+	./mvnw exec:java -Dexec.mainClass="$(MAIN_CLASS)"
 
 javadoc:
-	@echo "Generando documentación Javadoc en la carpeta doc/..."
-	mkdir -p doc
-	javadoc $(FX_MODULES) -d doc -sourcepath src/main/java $(SRC)
+	./mvnw javadoc:javadoc
+
+clean:
+	./mvnw clean
